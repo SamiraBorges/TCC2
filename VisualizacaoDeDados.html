@@ -1,0 +1,47 @@
+<html>
+  <head>    
+    <link href="site.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function StringMatrix(entrada){
+        var matrix=[['Ano', 'Ciencias Humanas','Ciencias da Natureza','Linguagens e Codigos','Matematica','Tecnica']];
+        vetorLinhas=entrada.split("_");
+        for(let i=0;i<vetorLinhas.length; i++){
+            notas=vetorLinhas[i].split(","); 
+            for(let j=1;j<notas.length; j++)
+              notas[j]=parseFloat(notas[j]);
+            matrix.push(notas);
+          }
+          return matrix;
+
+
+}
+
+      function drawChart() {
+        var url_string = window.location;
+        var url= new URL(url_string);
+        var name=url.searchParams.get("nome").trim();
+        var value = url.searchParams.get("dados").trim();
+        var matrix= StringMatrix(value);
+        var data = google.visualization.arrayToDataTable(matrix);
+        var options = {
+          title: (name),
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+  </head>
+  <body>
+    
+    <h2 style="text-align: center;">Resultados das Notas </h2>
+    <div id="curve_chart" style="width: 1300px; height: 900px;" ></div>
+    <a href="ListarAlunos.html"><button>Voltar</button></a>
+  </body>
+</html>
+

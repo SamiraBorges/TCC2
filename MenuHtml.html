@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trabalho_de_Conclusão_de_Curso_2</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="site.css" />
+    <style>
+        .navbar-pink {
+            background-color: rgb(20, 100, 63) !important; /* Substitua 'pink' pela cor que desejar */
+        }
+    </style>
+    <script>
+        function init() {
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+        }
+
+        function handleFileSelect(event) {
+            const reader = new FileReader()
+            reader.onload = handleFileLoad;
+            reader.readAsText(event.target.files[0])
+        }
+
+        function handleFileLoad(event) {
+            
+            texto = event.target.result;//Obtem os dados do arquivo txt.
+            listar = "";
+            vetorAlunos = texto.split("\n");//Divide os  dados em linhas
+            for (let i = 2; i < vetorAlunos.length; i++) {//loop linha a linha cada linha tem  nome e notas
+                //Varieaveis para somar as notas das disciplinas de cada area de conhecimento
+                var Humanas1 = 0;
+                var Natureza1 = 0;
+                var Linguagens1 = 0;
+                var Matematica1 = 0;
+                var Tecnica1 = 0;
+                var Humanas2 = 0;
+                var Natureza2 = 0;
+                var Linguagens2 = 0;
+                var Matematica2 = 0;
+                var Tecnica2 = 0;
+                var Humanas3 = 0;
+                var Natureza3 = 0;
+                var Linguagens3 = 0;
+                var Matematica3 = 0;
+                var Tecnica3 = 0;
+                console.log(event);
+                console.log(vetorAlunos[i]);
+
+                notas = vetorAlunos[i].split(";");//Divide nome e as varias notas
+                nome = notas[0];
+                for (let c = 1; c < notas.length; c++) {//loop passando de nota em nota para somar
+                    if (c == 8 || c == 14 || c == 17 || c == 35) {// soma humanas 1
+                        let valor = parseFloat(notas[c].trim().replace(",", "."));
+                        Humanas1 += valor;
+                    }
+                    if (c == 9 || c == 15 || c == 18 || c == 36) {// soma humanas 2
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Humanas2 += valor;
+                    }
+                    if (c == 10 || c == 16 || c == 19 || c == 37) {// soma humanas 3
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Humanas3 += valor;
+                    }
+
+                    if (c == 3 || c == 11 || c == 32) {// soma Natureza 1
+
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Natureza1 += valor;
+                    }
+                    if (c == 4 || c == 12 || c == 33) {// soma Natureza 2
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Natureza2 += valor;
+                    }
+                    if (c == 5 || c == 13 || c == 34) {// soma natureza 3
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Natureza3 += valor;
+                    }
+                    if (c == 5 || c == 20 || c == 23 || c == 26) {// soma Linguagem 1
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Linguagens1 += valor;
+                    }
+                    if (c == 6 || c == 21 || c == 24 || c == 27) {// soma Linguagem 2
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Linguagens2 += valor;
+                    }
+                    if (c == 7 || c == 22 || c == 25 || c == 28) {// soma Linguagem 3
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Linguagens3 += valor;
+                    } if (c == 29) {// soma Mat 1
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Matematica1 += valor;
+                    
+                    }
+                    if (c == 30) {// soma Mat2
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Matematica2 += valor;
+                    }
+                    if (c == 31) {// soma Mat 3
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Matematica3 += valor;
+                    } if (c == 38 || c == 39 || c == 40) {// soma Tecnica1
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Tecnica1 += valor;
+                    }
+                    if (c == 41 || c == 42 || c == 43 || c == 44 || c == 45 || c == 46) {// soma tecnica 2
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Tecnica2 += valor;
+                    }
+                    if (c == 47 || c == 48 || c == 49 || c == 50) {// soma tecnica 3
+                        let valor = parseFloat(notas[c].replace(",", "."));
+                        Tecnica3 += valor;
+                    }
+
+                }//fim do for c
+                //Calcula media de cada Area 
+                Humanas1 = Humanas1 / 4;// numero da divisão representa quantas disciplinas tem a area
+                Humanas2 = Humanas2 / 4;
+                Humanas3 = Humanas3 / 4;
+                Natureza1 = Natureza1 / 3;
+                Natureza2 = Natureza2 / 3;
+                Natureza3 = Natureza3 / 3;
+                Linguagens1 = Linguagens1 / 4;
+                Linguagens2 = Linguagens2 / 4;
+                Linguagens3 = Linguagens3 / 4;
+                Tecnica1 = Tecnica1 / 3;
+                Tecnica2 = Tecnica2 / 5;
+                Tecnica3 = Tecnica3 / 4;
+                // monta a matriz de dados para gerar os dados na tela
+                let dados = "\'1° ano\', " + Humanas1 + ", " + Natureza1 + ", " + Linguagens1 + ", " + Matematica1 + "," + Tecnica1 + "_" +
+                    "\'2° ano\', " + Humanas2 + ", " + Natureza2 + ", " + Linguagens2 + ", " + Matematica2 + "," + Tecnica2 + "_" +
+                    "\'3° ano\', " + Humanas3 + ", " + Natureza3 + ", " + Linguagens3 + ", " + Matematica3 + "," + Tecnica3 + "";
+                // Gera o link para o grafico
+                listar += "<a href=\"VisualizacaoDeDados.html?nome=" + nome + "&dados=" + dados + "\">" + nome + "</a><br>";
+
+            }
+
+            document.getElementById('fileContent').innerHTML = listar;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 navbar-pink" style="z-index:100">
+            <div class="container">
+                <a class="navbar-brand" href="/" style="font-family:Child Dream;margin-bottom:-5px">
+                    <img src="ifmg-vertical.png" alt="Ícone" style="width: 50px; height: 50px; margin-right: 0px;margin-top:-7px;">
+                    Vizualização de Dados Educacionais
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="color:black;">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Privacy" style="color:black !important;">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="principal">   
+            <h2 style="text-align: center;">Selecione o arquivo</h2>
+            <input id="fileInput" type="file" name="file" />
+            <pre id="fileContent"></pre>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!-- Conteúdo da Página -->
+            
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted navbar-pink">
+        <div class="container">
+            &copy; 2023 - Trabalho_de_Conclusão_de_Curso_2 - <a href="/Privacy">Privacy</a>
+        </div>
+    </footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="site.js"></script>
+    <!-- Seção de Scripts -->
+    <body onload="init()">
+
+</body>
+</html>
